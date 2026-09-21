@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Receivables Entry Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen py-10 px-4">
+
+  <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-md p-8">
+    <div class="border-b pb-4 mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Client Receivables Data Entry Form</h2>
+      <p class="text-sm text-gray-500">Fetch project and leads details directly into receivables management.</p>
+    </div>
+
+    <form id="receivablesForm" class="space-y-8">
+      
+      <!-- Section 1: Project & Client Identification -->
+      <div>
+        <h3 class="text-lg font-semibold text-blue-700 border-b pb-2 mb-4">1. Project & Client Details</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Project Code (Unique Event Code)</label>
+            <input type="text" id="projectCode" placeholder="Type or select Project Code (e.g. PRJ-2026-001)" list="projectCodesList" required class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-gray-50 focus:bg-white focus:ring-blue-500 focus:border-blue-500">
+            <datalist id="projectCodesList">
+              <option value="PRJ-2026-001">
+              <option value="PRJ-2026-002">
+              <option value="PRJ-2026-003">
+            </datalist>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Client Name</label>
+            <input type="text" id="clientName" placeholder="Auto-populated Client Name" readonly class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-gray-100 text-gray-600 cursor-not-allowed">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Purchase Order Details -->
+      <div>
+        <h3 class="text-lg font-semibold text-blue-700 border-b pb-2 mb-4">2. Purchase Order (PO) Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">PO Date</label>
+            <input type="date" id="poDate" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">PO Received?</label>
+            <input type="text" id="poReceived" value="No" readonly class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-gray-100 text-gray-600 font-semibold">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">PO Amount (₹)</label>
+            <input type="number" id="poAmount" placeholder="0.00" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Invoicing & Taxes -->
+      <div>
+        <h3 class="text-lg font-semibold text-blue-700 border-b pb-2 mb-4">3. Invoice & Tax Calculations</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Invoice Raised from State</label>
+            <select id="invoiceState" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+              <option value="">-- Select State --</option>
+              <option value="MH">Maharashtra</option>
+              <option value="KA">Karnataka</option>
+              <option value="DL">Delhi</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">GSTIN</label>
+            <input type="text" id="gstin" readonly placeholder="Auto-populated GSTIN" class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-gray-100 text-gray-600">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Invoice Number</label>
+            <input type="text" id="invoiceNo" placeholder="INV/2026/001" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Invoice Date</label>
+            <input type="date" id="invoiceDate" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Event End Date</label>
+            <input type="date" id="eventEndDate" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Summary Sent to Client Date</label>
+            <input type="date" id="summarySentDate" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Client Approval Received</label>
+            <select id="clientApproval" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Invoice Amount (₹)</label>
+            <input type="number" id="invoiceAmount" placeholder="0.00" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Difference (Actual Bill - PO)</label>
+            <input type="number" id="poDiff" readonly placeholder="0.00" class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-gray-100 text-gray-600 font-semibold">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">CGST (%)</label>
+            <input type="number" id="cgst" value="9" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">SGST (%)</label>
+            <input type="number" id="sgst" value="9" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">IGST Combined (%)</label>
+            <input type="text" id="igst" readonly value="18%" class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-gray-100 text-gray-600 font-semibold">
+          </div>
+
+          <div class="md:col-span-3">
+            <label class="block text-sm font-medium text-gray-700">Taxable Amount Total (Difference + Taxes) (₹)</label>
+            <input type="number" id="taxableAmount" readonly placeholder="0.00" class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-emerald-50 text-emerald-800 font-bold text-lg">
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 4: Advance & Outstanding Payments -->
+      <div>
+        <h3 class="text-lg font-semibold text-blue-700 border-b pb-2 mb-4">4. Payment Terms & Collections</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Advance Date (EI Column)</label>
+            <input type="date" id="advanceDate" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Advance Received?</label>
+            <input type="text" id="advanceReceived" value="No" readonly class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-gray-100 text-gray-600 font-semibold">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Balance Due (₹)</label>
+            <input type="number" id="balanceDue" placeholder="0.00" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Credit Period (Days)</label>
+            <input type="number" id="creditPeriod" value="30" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Payment Due Date</label>
+            <input type="date" id="paymentDueDate" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Payment Received Date</label>
+            <input type="date" id="paymentReceivedDate" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Days Overdue</label>
+            <input type="number" id="daysOverdue" readonly value="0" class="mt-1 block w-full border-gray-300 rounded-md border p-2 bg-gray-100 text-red-600 font-bold">
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Payment Status</label>
+            <select id="paymentStatus" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+              <option value="No">Pending (No)</option>
+              <option value="Yes">Received (Yes)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 5: Automated Follow-ups -->
+      <div>
+        <h3 class="text-lg font-semibold text-blue-700 border-b pb-2 mb-4">5. Follow-up Tracking</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Payments - Daily Email Follow-up</label>
+            <select id="dailyEmailFollowup" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Payments - 3 Days Calling Follow-up</label>
+            <select id="callingFollowup" class="mt-1 block w-full border-gray-300 rounded-md border p-2">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-4 text-right">
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-200">
+          Save Record to Receivables Sheet
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Sample Project mapping for demonstration
+    const clientDatabase = {
+      "PRJ-2026-001": "Acme Healthcare India Pvt Ltd",
+      "PRJ-2026-002": "Global Tech Solutions",
+      "PRJ-2026-003": "Apex Pharma Limited"
+    };
+
+    const gstinDatabase = {
+      "MH": "27AABCU9603R1ZM",
+      "KA": "29AAACG1234F1Z5",
+      "DL": "07AAACS5678D1Z2"
+    };
+
+    // Auto-fetch Client Name
+    document.getElementById('projectCode').addEventListener('input', function(e) {
+      const code = e.target.value.trim();
+      document.getElementById('clientName').value = clientDatabase[code] || "";
+    });
+
+    // PO Received toggle logic
+    document.getElementById('poDate').addEventListener('change', function(e) {
+      document.getElementById('poReceived').value = e.target.value ? "Yes" : "No";
+    });
+
+    // Advance Received toggle logic
+    document.getElementById('advanceDate').addEventListener('change', function(e) {
+      document.getElementById('advanceReceived').value = e.target.value ? "Yes" : "No";
+    });
+
+    // State -> GSTIN logic
+    document.getElementById('invoiceState').addEventListener('change', function(e) {
+      document.getElementById('gstin').value = gstinDatabase[e.target.value] || "";
+    });
+
+    // Calculations: Taxes, Difference, Taxable Amount
+    function calculateFinancials() {
+      const poAmt = parseFloat(document.getElementById('poAmount').value) || 0;
+      const invAmt = parseFloat(document.getElementById('invoiceAmount').value) || 0;
+      const cgst = parseFloat(document.getElementById('cgst').value) || 0;
+      const sgst = parseFloat(document.getElementById('sgst').value) || 0;
+
+      const diff = invAmt - poAmt;
+      document.getElementById('poDiff').value = diff;
+
+      const totalTaxPct = cgst + sgst;
+      document.getElementById('igst').value = totalTaxPct + "%";
+
+      const taxableTotal = diff * (1 + (totalTaxPct / 100));
+      document.getElementById('taxableAmount').value = taxableTotal.toFixed(2);
+    }
+
+    ['poAmount', 'invoiceAmount', 'cgst', 'sgst'].forEach(id => {
+      document.getElementById(id).addEventListener('input', calculateFinancials);
+    });
+
+    // Days Overdue calculation
+    document.getElementById('paymentDueDate').addEventListener('change', function(e) {
+      if (!e.target.value) return;
+      const dueDate = new Date(e.target.value);
+      const today = new Date();
+      const diffTime = today - dueDate;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      document.getElementById('daysOverdue').value = diffDays > 0 ? diffDays : 0;
+    });
+
+    document.getElementById('receivablesForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Form submitted! Ready to trigger Google Apps Script backend function.');
+    });
+  </script>
+</body>
+</html>
